@@ -1,0 +1,9 @@
+# IntelliJ project files
+.idea
+# OSX template
+.DS_Store
+# project
+public
+# modules
+node_modules
+bower_components
