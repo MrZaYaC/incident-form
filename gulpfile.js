@@ -6,17 +6,22 @@ var ngAnnotate    = require('gulp-ng-annotate');
 var minifyHTML    = require('gulp-minify-html');
 var sourcemaps    = require('gulp-sourcemaps');
 var imagemin      = require('gulp-imagemin');
+var webserver     = require('gulp-webserver');
+var less          = require('gulp-less');
+var path          = require('path');
 
 dev_path = {
   jade: './src/jade/pages/**/*.jade',
   images: './src/img/**',
-  js: './src/js/'
+  js: './src/js/',
+  less: './src/less/styles.less'
 };
 
 pub_path = {
   html: './public/',
   images: './public/img/',
-  js: './public/js/'
+  js: './public/js/',
+  css: './public/css/'
 };
 
 gulp.task('jade', function(){
@@ -35,7 +40,7 @@ gulp.task('images', function() {
 gulp.task('js_dev', function () {
     gulp.src([dev_path.js + 'app.js', dev_path.js + '**/*.js'])
         .pipe(sourcemaps.init())
-            .pipe(concat('app.js'))
+            .pipe(concat('app.min.js'))
             .pipe(ngAnnotate())
             .pipe(uglify())
         .pipe(sourcemaps.write())
@@ -43,18 +48,36 @@ gulp.task('js_dev', function () {
 });
 gulp.task('js_pub', function () {
   gulp.src([dev_path.js + 'app.js', dev_path.js + '**/*.js'])
-    .pipe(concat('app.js'))
+    .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest(pub_path.js))
+});
+
+gulp.task('webserver', function() {
+  gulp.src('public')
+    .pipe(webserver({
+      livereload: true,
+      open: true,
+      fallback: 'index.html'
+    }));
+});
+
+gulp.task('less', function () {
+  return gulp.src(dev_path.less)
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest(pub_path.css));
 });
 
 gulp.task('watch', function () {
   gulp.watch('./src/img/**', ['images']);
   gulp.watch('./src/jade/**', ['jade']);
   gulp.watch('./src/js/**', ['js_dev']);
+  gulp.watch('./src/less/**', ['less']);
 });
 
-gulp.task('dev',['watch', 'jade', 'images', 'js_dev']);
-gulp.task('pub',['jade', 'images', 'js_pub']);
+gulp.task('dev',['watch', 'less', 'jade', 'images', 'js_dev', 'webserver']);
+gulp.task('pub',['less', 'jade', 'images', 'js_pub']);
 

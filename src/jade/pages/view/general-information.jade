@@ -1,0 +1,44 @@
+.container-fluid
+  .nav-tabs-inner
+    .alert.alert-warning
+      span.glyphicon.glyphicon-alert.space-after
+      span Please complete the form below based on available information. Click on applicable tabs above to enter
+      | additional information related to the incident. When complete click "REVIEW and SUBMIT" tab above.
+    // Main Form
+    .container-fluid
+      .row
+        .col-sm-6
+          form.form-horizontal(novalidate)
+            .form-group
+              label.col-sm-5.control-label Date and Time of Incident
+              .col-sm-7
+                p.input-group
+                  input.form-control(name="date" type='text', datepicker-popup="MM/dd/yyyy hh:mm a", ng-model='vm.form.date' is-open="vm.isOpenedDatePicker" required)
+                  span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='vm.openDatePicker($event)')
+                      i.glyphicon.glyphicon-calendar
+                timepicker(ng-model='vm.form.date')
+            .form-group
+              label.col-sm-5.control-label Reported By
+              .col-sm-7
+                input.form-control(name="reportedBy" ng-model="vm.form.reportedBy" required)
+            .form-group
+              label.col-sm-5.control-label Company of Reporter
+              .col-sm-7
+                select.form-control(name="company" ng-model="vm.form.company" required)
+                  option(value="CompanyA") CompanyA
+                  option(value="CompanyB") CompanyB
+                  option(value="CompanyC") CompanyC
+            .form-group
+              label.col-sm-5.control-label Contact Number
+              .col-sm-7
+                input.form-control(name="phone" ng-model="vm.form.phone" required ng-pattern="vm.usPhoneRegex")
+            .form-group
+              label.col-sm-5.control-label Supervisor Name
+              .col-sm-7
+                input.form-control(name="supervisorName" ng-model="vm.form.supervisorName")
+            .form-group
+                  label.col-sm-5.control-label High Level Description of Incident
+                  .col-sm-7
+                    textarea.form-control(name="description" ng-model="vm.form.description" required)
+        .col-sm-6

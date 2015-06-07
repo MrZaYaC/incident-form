@@ -1,0 +1,38 @@
+.container-fluid
+  .nav-tabs-inner
+    .container-fluid
+      .row
+        .col-sm-11.row
+          .alert.alert-warning
+            span.glyphicon.glyphicon-alert.space-after
+            span Please complete the form below based on available information. Click on applicable tabs above to enter
+            | additional information related to the incident. When complete click "REVIEW and SUBMIT" tab above.
+        .col-sm-1
+          button.btn.btn-primary(ng-click="vm.onSubmit()" ng-class="{'disabled': vm.isHasErrors()}") Submit
+    table.table.table-striped
+      tr
+        td Date and Time of incident
+        td(ng-bind="vm.getDate()")
+      tr
+        td Reported By
+        td(ng-if="vm.formErrors.reportedBy")
+          p.text-danger This field is required
+        td(ng-if="!vm.formErrors.reportedBy" ng-bind="vm.form.reportedBy")
+      tr
+        td Company of Reporter
+        td(ng-if="vm.formErrors.company")
+          p.text-danger This field is required
+        td(ng-if="!vm.formErrors.company" ng-bind="vm.form.company")
+      tr
+        td Contact Number
+        td(ng-if="vm.formErrors.phone")
+          p.text-danger This field is required
+        td(ng-if="!vm.formErrors.phone" ng-bind="vm.form.phone")
+      tr
+        td Supervisor Name
+        td(ng-bind="vm.form.supervisorName")
+      tr
+        td High Level Description of Incident
+        td(ng-if="vm.formErrors.description")
+          p.text-danger This field is required
+        td(ng-if="!vm.formErrors.description" ng-bind="vm.form.description")

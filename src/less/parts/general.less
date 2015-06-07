@@ -1,0 +1,19 @@
+.nav-tabs-inner {
+  border-bottom: 1px solid @border;
+  border-right: 1px solid @border;
+  border-left: 1px solid @border;
+  padding: @indent;
+}
+.space-after {
+  &:after {
+    content: " ";
+    display: inline-block;
+    font-size: 0;
+    width: @indent;
+    height: 0;
+    visibility: hidden;
+  }
+}
+.indented-top {
+  margin-top: @indent;
+}

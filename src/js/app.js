@@ -1,12 +1,12 @@
 'use strict';
-angular.module('app', ['ui.router'])
+angular.module('app', ['ui.router', 'ui.bootstrap'])
   .config(configure)
   .run(runBlock);
 
 configure.$inject = ['$urlRouterProvider', '$locationProvider'];
 
 function configure($urlRouterProvider, $locationProvider) {
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode({enabled: true, requireBase: false});
   $urlRouterProvider.otherwise('/404');
 }
 
