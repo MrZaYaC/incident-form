@@ -1,0 +1,30 @@
+.modal-header
+  h3.modal-title Add corrective actions
+.modal-body
+  form.form-horizontal(name="vm.formHandler" novalidate)
+    .form-group.required
+      label.col-sm-2.control-label(for="description") Description
+      .col-sm-10
+        textarea.form-control#description(ng-model="vm.form.description" name="description" required)
+    .form-group.required
+      label.col-sm-2.control-label(for="action") Action
+      .col-sm-10
+        input.form-control#action(ng-model="vm.form.action" name="action" required)
+    .form-group.required
+      label.col-sm-2.control-label(for="company") Company
+      .col-sm-10
+        select.form-control#company(ng-model="vm.form.company" name="company" required)
+          option(value="CompanyA") CompanyA
+          option(value="CompanyB") CompanyB
+          option(value="CompanyC") CompanyC
+    .form-group.required
+      label.col-sm-2.control-label(for="date") Date
+      .col-sm-10
+        .input-group
+          input.form-control#date(name="date" type='text' datepicker-popup="MM/dd/yyyy" ng-model='vm.form.date' is-open="vm.isOpenedDatePicker" required)
+          span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='vm.openDatePicker($event)')
+              i.glyphicon.glyphicon-calendar
+.modal-footer
+  button.btn.btn-primary(ng-click="vm.save()") OK
+  button.btn.btn-default(ng-click="vm.cancel()") Cancel

@@ -5,14 +5,16 @@
         .col-sm-11.row
           .alert.alert-warning
             span.glyphicon.glyphicon-alert.space-after
-            span Please complete the form below based on available information. Click on applicable tabs above to enter
-            | additional information related to the incident. When complete click "REVIEW and SUBMIT" tab above.
+            span Please review all the incident information and click "Submit" to send the report to the Company.
+            br
+            span If you want to change somethings - return to the Incident Form.
         .col-sm-1
           button.btn.btn-primary(ng-click="vm.onSubmit()" ng-class="{'disabled': vm.isHasErrors()}") Submit
+    h4 General Information:
     table.table.table-striped
       tr
         td Date and Time of incident
-        td(ng-bind="vm.getDate()")
+        td(ng-bind="vm.form.date | date: 'MM/dd/yyyy hh:mm a'")
       tr
         td Reported By
         td(ng-if="vm.formErrors.reportedBy")
@@ -36,3 +38,40 @@
         td(ng-if="vm.formErrors.description")
           p.text-danger This field is required
         td(ng-if="!vm.formErrors.description" ng-bind="vm.form.description")
+      tr
+        td Well Number
+        td(ng-if="vm.formErrors.wellNumber")
+          p.text-danger This field is required
+        td(ng-if="!vm.formErrors.wellNumber" ng-bind="vm.form.wellNumber")
+      tr
+        td Region
+        td(ng-bind="vm.form.region")
+      tr
+        td State
+        td(ng-bind="vm.form.state")
+      tr
+        td Field Office
+        td(ng-bind="vm.form.fieldOffice")
+      tr
+        td Incident Severity (Check all that Apply):
+        td(ng-if="vm.formErrors.incidentSeverity")
+          p.text-danger This field is required
+        td(ng-if="!vm.formErrors.incidentSeverity" ng-bind="vm.getIncidentSeverityList()")
+    h4 Immediate Corrective Action(s):
+    table.table.table-striped
+      tbody(ng-repeat="item in vm.form.correctiveActions")
+        tr
+          td Description of Corrective Item ({{$index + 1}})
+          td(ng-bind="item.description")
+        tr
+          td Action taken by (name) ({{$index + 1}})
+          td(ng-bind="item.action")
+        tr
+          td Company ({{$index + 1}})
+          td(ng-bind="item.company")
+        tr
+          td Date ({{$index + 1}})
+          td(ng-bind="item.date | date:'MM/dd/yyyy'")
+      tbody(ng-if="vm.form.correctiveActions.length === 0")
+        tr
+          td.text-center.text-danger(colspan="2") At least one required

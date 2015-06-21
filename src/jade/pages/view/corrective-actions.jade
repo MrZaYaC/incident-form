@@ -1,0 +1,26 @@
+.container-fluid
+  .nav-tabs-inner
+    .alert.alert-warning
+      span.glyphicon.glyphicon-alert.space-after
+      span Please complete the table bellow.
+    h4 Immediate corrective action(s)&nbsp;
+      small ({{vm.actionsAvailable}} of 5 available)
+    table.table
+      thead
+        th Description of corrective actions
+        th Action taken by (name)
+        th Company
+        th Date
+        th Actions
+      tbody
+        tr(ng-if="vm.form.correctiveActions.length" ng-repeat="item in vm.form.correctiveActions")
+          td(ng-bind="item.description")
+          td(ng-bind="item.action")
+          td(ng-bind="item.company")
+          td(ng-bind="item.date | date: 'MM/dd/yyyy'")
+          td.text-center
+            span.glyphicon.glyphicon-edit.pointer.space-after(ng-click="vm.edit($index)")
+            span.glyphicon.glyphicon-trash.pointer(ng-click="vm.remove($index)")
+        tr(ng-if="vm.form.correctiveActions.length === 0")
+          td.text-center.text-danger(colspan="5") At least one required
+    button.btn.btn-success(ng-click="vm.addCorrectiveAction()" ng-class="{ 'disabled': vm.form.correctiveActions.length >= 5}") Add corrective action

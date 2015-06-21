@@ -9,7 +9,7 @@
       .row
         .col-sm-6
           form.form-horizontal(novalidate)
-            .form-group
+            .form-group.required
               label.col-sm-5.control-label Date and Time of Incident
               .col-sm-7
                 p.input-group
@@ -18,18 +18,18 @@
                     button.btn.btn-default(type='button', ng-click='vm.openDatePicker($event)')
                       i.glyphicon.glyphicon-calendar
                 timepicker(ng-model='vm.form.date')
-            .form-group
+            .form-group.required
               label.col-sm-5.control-label Reported By
               .col-sm-7
                 input.form-control(name="reportedBy" ng-model="vm.form.reportedBy" required)
-            .form-group
+            .form-group.required
               label.col-sm-5.control-label Company of Reporter
               .col-sm-7
                 select.form-control(name="company" ng-model="vm.form.company" required)
                   option(value="CompanyA") CompanyA
                   option(value="CompanyB") CompanyB
                   option(value="CompanyC") CompanyC
-            .form-group
+            .form-group.required
               label.col-sm-5.control-label Contact Number
               .col-sm-7
                 input.form-control(name="phone" ng-model="vm.form.phone" required ng-pattern="vm.usPhoneRegex")
@@ -37,8 +37,67 @@
               label.col-sm-5.control-label Supervisor Name
               .col-sm-7
                 input.form-control(name="supervisorName" ng-model="vm.form.supervisorName")
-            .form-group
+            .form-group.required
                   label.col-sm-5.control-label High Level Description of Incident
                   .col-sm-7
                     textarea.form-control(name="description" ng-model="vm.form.description" required)
         .col-sm-6
+          h4.text-center Well Information:
+          form.form-horizontal(novalidate)
+            .form-group.required
+              label.col-sm-5.control-label Well Number:
+              .col-sm-7
+                select.form-control(name="wellNumber" ng-model="vm.form.wellNumber" required
+                ng-options="well.id as well.id for well in vm.wellList"
+                ng-change="vm.onWellChange()")
+                  option(value="" label="Choose Well")
+            .form-group
+              label.col-sm-5.control-label Region:
+              .col-sm-7
+                input.form-control(name="region" ng-model="vm.form.region" disabled)
+            .form-group
+              label.col-sm-5.control-label State:
+              .col-sm-7
+                input.form-control(name="state" ng-model="vm.form.state" disabled)
+            .form-group
+              label.col-sm-5.control-label Field Office:
+              .col-sm-7
+                input.form-control(name="fieldOffice" ng-model="vm.form.fieldOffice" disabled)
+            .form-group.required
+              label.col-sm-5.control-label Incident Severity (Check all that Apply):
+              .col-sm-7
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.loss"
+                      ng-disabled="vm.form.incidentSeverity.noneApply")
+                    | Loss of well controll
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.fatality"
+                      ng-disabled="vm.form.incidentSeverity.noneApply")
+                    | Fatality(ies)
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.hospitalization"
+                      ng-disabled="vm.form.incidentSeverity.noneApply")
+                    | Hospitalization or medical treatment
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.spillOffsite"
+                      ng-disabled="vm.form.incidentSeverity.noneApply")
+                    | Spill offsite > 50 Bbls
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.spillToWater"
+                      ng-disabled="vm.form.incidentSeverity.noneApply")
+                    | Spill to water, any amount
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.damage"
+                      ng-disabled="vm.form.incidentSeverity.noneApply")
+                    | Property damage
+                .hr
+                .checkbox
+                  label
+                    input(type="checkbox" ng-model="vm.form.incidentSeverity.noneApply")
+                    | None Apply

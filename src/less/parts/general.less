@@ -1,7 +1,7 @@
 .nav-tabs-inner {
-  border-bottom: 1px solid @border;
-  border-right: 1px solid @border;
-  border-left: 1px solid @border;
+  border-bottom: 1px solid @border-color;
+  border-right: 1px solid @border-color;
+  border-left: 1px solid @border-color;
   padding: @indent;
 }
 .space-after {
@@ -16,4 +16,20 @@
 }
 .indented-top {
   margin-top: @indent;
+}
+.hr {
+  height: 1px;
+  background: @border-color;
+  margin: @indent 0;
+}
+.form-group.required .control-label:before {
+  content: '*';
+  color: red;
+  margin-right: 5px;
+}
+.ng-dirty.ng-invalid {
+  border-color: red;
+}
+.pointer {
+  cursor: pointer;
 }
