@@ -54,7 +54,7 @@ gulp.task('js_pub', function () {
     .pipe(gulp.dest(pub_path.js))
 });
 
-gulp.task('webserver', function() {
+gulp.task('webserver', ['less', 'jade', 'images', 'js_dev'] , function() {
   gulp.src('public')
     .pipe(webserver({
       livereload: true,
@@ -78,6 +78,6 @@ gulp.task('watch', function () {
   gulp.watch('./src/less/**', ['less']);
 });
 
-gulp.task('dev',['watch', 'less', 'jade', 'images', 'js_dev', 'webserver']);
+gulp.task('dev',['less', 'jade', 'images', 'js_dev', 'webserver', 'watch']);
 gulp.task('pub',['less', 'jade', 'images', 'js_pub']);
 
